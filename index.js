@@ -5,6 +5,7 @@ require('dotenv').config()
 
 const app = express();
 const port = process.env.PORT || 8081;
+const jwt_secret = process.env.JWT_SECRET;
 const connectionURL = process.env.CONNECTION_URL;
 
 app.use(bodyParser.json());
