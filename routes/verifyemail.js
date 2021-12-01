@@ -1,12 +1,9 @@
 const User = require("../models/user");
-const bcryptjs = require("bcryptjs");
-const valid = require("../utils");
-const sendEmail = require("../services/email");
 const jwt = require("jsonwebtoken");
 const VerifyTokens = require("../models/VerifyToken")
 
 module.exports = (app) =>{
-    app.get('/verify-email', async (req,res)=>{
+    app.get('/api/verify-email', async (req,res)=>{
         const { verifyToken } = req.body;
         const verifyTokenDoc = await VerifyTokens.findOne({verifyToken});
         if(!verifyTokenDoc){
