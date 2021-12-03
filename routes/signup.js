@@ -31,7 +31,7 @@ module.exports = (app) =>{
             const addToken = await VerifyTokens.create({
                 verifyToken: verifyToken
             })
-            sendEmail(email,'Verify your email address- authtestexample',`Hi ${name}, Please Verify your email address by clicking on this url : ${Urls.WebUrl}/verify-email/${verifyToken}`);
+            sendEmail(email,'Verify your email address- authtestexample',`Hi ${name}, Please Verify your email address by clicking on this url : ${Urls.WebUrl}/verify-email?token=${verifyToken}`);
         }catch(err){
             console.log(err)
             if(err.code===11000)

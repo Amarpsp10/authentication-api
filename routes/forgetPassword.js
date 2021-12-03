@@ -19,7 +19,7 @@ module.exports = (app) =>{
             const addToken = await ForgetTokens.create({
                 forgetToken : forgetToken
             });
-            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : ${Urls.WebUrl}/reset-password/${forgetToken}`);
+            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : ${Urls.WebUrl}/reset-password?token=${forgetToken}`);
         }catch(err){
             console.log(err)
             return res.status(400).json({status:'fail', message:'Something went wrong!'})
