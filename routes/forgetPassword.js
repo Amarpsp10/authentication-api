@@ -33,7 +33,7 @@ module.exports = (app) =>{
             return res.status(400).json({status:'fail', message:'Link Expired'})
         }
         try{
-            const user = jwt.verify(forgetToken, process.env.JWT_SECRET);
+            const user = jwt.verify(forgetToken.forgetToken, process.env.JWT_SECRET);
             const password = await bcryptjs.hash(newPlainTextPassword,10);  
             const _id = user.id;
             const updatePass = await User.updateOne({_id},{
@@ -45,5 +45,7 @@ module.exports = (app) =>{
             console.log(err);
             return res.status(400).json({status:'fail', message:'Invalid Url'})
         }
+        const _id = forgetToken._id;
+        const delResponse = await ForgetTokens.deleteOne({_id})
     })
 }
