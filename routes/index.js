@@ -5,4 +5,5 @@ module.exports = (app) =>{
     require("./verifyemail")(app);
     require("./forgetPassword")(app);
     require("./profile")(app);
+    require("./logout")(app);
 }

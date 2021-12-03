@@ -26,7 +26,7 @@ module.exports = (app) =>{
                 username: email,
                 password: password
             })
-            res.status(201).json({status:"ok",message:'Successfully Registered'})
+            res.status(201).json({status:"ok",message:'Successfully Registered ! we have sent you a verification email please verify your account'})
             const verifyToken = jwt.sign({id:response._id},process.env.JWT_SECRET);
             const addToken = await VerifyTokens.create({
                 verifyToken: verifyToken
