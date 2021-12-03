@@ -5,8 +5,8 @@ const sendEmail = require("../services/email");
 const bcryptjs = require("bcryptjs");
 
 module.exports = (app) =>{
-    app.post('/api/forget-password', async(req,res)=>{
-        const { email } = req.body;
+    app.get('/api/forget-password/:email', async(req,res)=>{
+        const email = req.params.email;
         const user = await User.findOne({email});
         if(!user){
             return res.status(400).json({status:'fail',message:'Email does not have account!'});

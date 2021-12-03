@@ -5,7 +5,7 @@ const jwt = require("jsonwebtoken");
 const JwtTokens = require("../models/JwtToken");
 
 module.exports = (app) =>{
-    app.get('/api/login', async (req,res)=>{
+    app.post('/api/login', async (req,res)=>{
         const{email, password} = req.body;
         if(!valid.emailValid(email)){
             return res.status(400).json({status:'fail',message:'Invalid email address'})
