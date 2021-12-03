@@ -2,8 +2,8 @@ const jwt = require("jsonwebtoken");
 const JwtTokens = require("../models/JwtToken");
 
 module.exports = (app) =>{
-    app.get('/api/logout', async (req,res)=>{
-        const { token } = rq.body;
+    app.get('/api/logout/:token', async (req,res)=>{
+        const token = req.params.token;
         const response = await JwtTokens.findOne({token});
         if(!response){
             return res.status(400).json({status:'fail', message:'Invalid token'});

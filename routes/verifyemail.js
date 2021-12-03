@@ -3,14 +3,14 @@ const jwt = require("jsonwebtoken");
 const VerifyTokens = require("../models/VerifyToken")
 
 module.exports = (app) =>{
-    app.get('/api/verify-email', async (req,res)=>{
-        const { verifyToken } = req.body;
+    app.get('/api/verify-email/:verifyToken', async (req,res)=>{
+        const verifyToken = req.params.verifyToken;
         const verifyTokenDoc = await VerifyTokens.findOne({verifyToken});
-        if(!verifyTokenDoc){
-            return res.status(200).json({status:'ok',message:'this email is already verified'})
-        }
         try{
             const user = jwt.verify(verifyToken,process.env.JWT_SECRET);
+            if(!verifyTokenDoc){
+                return res.status(200).json({status:'ok',message:'this email is already verified'})
+            }
             const _id = user.id;
             const userDoc = await User.updateOne({_id},{
                 $set: {verified: true}

@@ -4,6 +4,8 @@ const valid = require("../utils");
 const sendEmail = require("../services/email");
 const jwt = require("jsonwebtoken");
 const VerifyTokens = require("../models/VerifyToken")
+const Urls = require("../utils/urls");
+
 module.exports = (app) =>{
 
     app.post('/api/signup', async (req,res)=>{
@@ -24,12 +26,12 @@ module.exports = (app) =>{
                 username: email,
                 password: password
             })
-            res.status(201).json({status:"ok",message:'Successfully Registered'})
+            res.status(201).json({status:"ok",message:'Successfully Registered ! we have sent you a verification email please verify your account'})
             const verifyToken = jwt.sign({id:response._id},process.env.JWT_SECRET);
             const addToken = await VerifyTokens.create({
                 verifyToken: verifyToken
             })
-            sendEmail(email,'Verify your email address- authtestexample',`Hi ${name}, Please Verify your email address by clicking on this url : https://www.localhost:3000/verify-email/${verifyToken}`);
+            sendEmail(email,'Verify your email address- authtestexample',`Hi ${name}, Please Verify your email address by clicking on this url : ${Urls.WebUrl}/verify-email?token=${verifyToken}`);
         }catch(err){
             console.log(err)
             if(err.code===11000)

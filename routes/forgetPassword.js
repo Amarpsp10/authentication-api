@@ -3,10 +3,11 @@ const jwt = require("jsonwebtoken");
 const ForgetTokens = require("../models/ForgetToken")
 const sendEmail = require("../services/email");
 const bcryptjs = require("bcryptjs");
+const Urls = require("../utils/urls");
 
 module.exports = (app) =>{
-    app.post('/api/forget-password', async(req,res)=>{
-        const { email } = req.body;
+    app.get('/api/forget-password/:email', async(req,res)=>{
+        const email = req.params.email;
         const user = await User.findOne({email});
         if(!user){
             return res.status(400).json({status:'fail',message:'Email does not have account!'});
@@ -18,7 +19,7 @@ module.exports = (app) =>{
             const addToken = await ForgetTokens.create({
                 forgetToken : forgetToken
             });
-            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : https://www.localhost:3000/reset-password/${forgetToken}`);
+            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : ${Urls.WebUrl}/reset-password?token=${forgetToken}`);
         }catch(err){
             console.log(err)
             return res.status(400).json({status:'fail', message:'Something went wrong!'})
@@ -32,7 +33,7 @@ module.exports = (app) =>{
             return res.status(400).json({status:'fail', message:'Link Expired'})
         }
         try{
-            const user = jwt.verify(forgetToken, process.env.JWT_SECRET);
+            const user = jwt.verify(forgetToken.forgetToken, process.env.JWT_SECRET);
             const password = await bcryptjs.hash(newPlainTextPassword,10);  
             const _id = user.id;
             const updatePass = await User.updateOne({_id},{
@@ -44,5 +45,7 @@ module.exports = (app) =>{
             console.log(err);
             return res.status(400).json({status:'fail', message:'Invalid Url'})
         }
+        const _id = forgetToken._id;
+        const delResponse = await ForgetTokens.deleteOne({_id})
     })
 }
