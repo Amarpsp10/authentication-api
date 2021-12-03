@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 const ForgetTokens = require("../models/ForgetToken")
 const sendEmail = require("../services/email");
 const bcryptjs = require("bcryptjs");
+const Urls = require("../utils/urls");
 
 module.exports = (app) =>{
     app.get('/api/forget-password/:email', async(req,res)=>{
@@ -18,7 +19,7 @@ module.exports = (app) =>{
             const addToken = await ForgetTokens.create({
                 forgetToken : forgetToken
             });
-            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : https://www.localhost:3000/reset-password/${forgetToken}`);
+            sendEmail(email,'Reset your password - authtestexample',`Hi ${user.name}, Please reset your password by clicking on this url : ${Urls.WebUrl}/reset-password/${forgetToken}`);
         }catch(err){
             console.log(err)
             return res.status(400).json({status:'fail', message:'Something went wrong!'})
