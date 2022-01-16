@@ -9,7 +9,7 @@ APIS handled by in <a href="https://react-auth-example.herokuapp.com/">Frontend<
   <tr><td>CONNECTION_URL</td> <td>MongoDb Connection URL</td></tr>
   <tr><td>JWT_SECRET</td> <td>Create new secret for sign jwt token</td></tr>
   <tr><td>PORT</td> <td>App listening port</td></tr>
-  <tr><td>EMAIL</td> <td>Account email for sending email to user</td></tr>
+  <tr><td>EMAIL</td> <td>Account email for sending email to users</td></tr>
   <tr><td>PASSWORD</td> <td>Account password to authenticate</td></tr>
 </table>
 
@@ -30,6 +30,6 @@ Run command in terminal
       
 2. Start Container 
 
-       docker run -p 5000:5000 auth-api-image
+       docker run -p 5000:5000 --name auth-api-container-name auth-api-image
        
       project is started at `localhost` at port `5000`.
