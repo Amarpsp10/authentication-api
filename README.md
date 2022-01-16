@@ -1,6 +1,6 @@
 ### Single Token Authentication using Nodejs & MongoDb
 
-Frontend Link : <a href="https://react-auth-example.herokuapp.com/">Link</a> | Frontend Repo : <a href="https://github.com/Amarpsp10/react-auth-example">Link</a>
+APIS handled by in <a href="https://react-auth-example.herokuapp.com/">Frontend</a> | Frontend Repo : <a href="https://github.com/Amarpsp10/react-auth-example">Link</a>
 
 ### Add .env variables
 
@@ -21,3 +21,15 @@ Run command in terminal
 
     npm install && npm start
 <hr/>
+
+### Run with Doker <img width="30px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-plain.svg" alt="docker"/>
+
+1. Run command in root directory to build image
+
+       docker build . -t auth-api-image
+      
+2. Start Container 
+
+       docker run -p 5000:5000 auth-api-image
+       
+      project is started at `localhost` at port `5000`.
