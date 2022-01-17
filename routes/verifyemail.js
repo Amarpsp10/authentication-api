@@ -3,6 +3,23 @@ const jwt = require("jsonwebtoken");
 const VerifyTokens = require("../models/VerifyToken")
 
 module.exports = (app) =>{
+     /**
+   * @swagger
+   * /api/verify-email/{verifyToken}:
+   *   get:
+   *     description: verify user
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: verifyToken
+   *         in: path
+   *         description: verify token.
+   *         required: true
+   *         type: string 
+   *     responses:
+   *       200:
+   *         description: Your email successfully verified, login to get started!
+   */
     app.get('/api/verify-email/:verifyToken', async (req,res)=>{
         const verifyToken = req.params.verifyToken;
         const verifyTokenDoc = await VerifyTokens.findOne({verifyToken});
