@@ -7,7 +7,31 @@ const VerifyTokens = require("../models/VerifyToken")
 const Urls = require("../utils/urls");
 
 module.exports = (app) =>{
-
+   /**
+   * @swagger
+   * /api/signup:
+   *   post:
+   *     description: register user
+   *     parameters:
+   *       - name: name
+   *         description: User's name.
+   *         required: true
+   *         type: string
+   *         in : body
+   *       - name: email
+   *         description: User's email.
+   *         required: true
+   *         type: string
+   *         in : body
+   *       - name: password
+   *         description: User's password.
+   *         required: true
+   *         type: string  
+   *         in : body
+   *     responses:
+   *       200:
+   *         description: Successfully Registered ! we have sent you a verification email please verify your account
+   */
     app.post('/api/signup', async (req,res)=>{
         const{name, password:plaintextPassword, email} = req.body;
         console.log('registering user with ',req.body);

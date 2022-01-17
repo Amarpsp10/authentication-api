@@ -5,6 +5,28 @@ const jwt = require("jsonwebtoken");
 const JwtTokens = require("../models/JwtToken");
 
 module.exports = (app) =>{
+   /**
+   * @swagger
+   * /api/login:
+   *   post:
+   *     description: login verified user
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: email
+   *         description: User's email.
+   *         required: true
+   *         type: string
+   *         in : body
+   *       - name: password
+   *         description: User's password.
+   *         required: true
+   *         type: string  
+   *         in : body
+   *     responses:
+   *       200:
+   *         description: jwt token
+   */
     app.post('/api/login', async (req,res)=>{
         const{email, password} = req.body;
         if(!valid.emailValid(email)){

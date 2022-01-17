@@ -2,6 +2,23 @@ const jwt = require("jsonwebtoken");
 const JwtTokens = require("../models/JwtToken");
 
 module.exports = (app) =>{
+     /**
+   * @swagger
+   * /api/logout/{token}:
+   *   get:
+   *     description: forgot password request to send email!
+   *     produces:
+   *       - application/json
+   *     parameters:
+   *       - name: token
+   *         in: path
+   *         description: token.
+   *         required: true
+   *         type: string 
+   *     responses:
+   *       200:
+   *         description: Successfully Logged out!
+   */
     app.get('/api/logout/:token', async (req,res)=>{
         const token = req.params.token;
         const response = await JwtTokens.findOne({token});
